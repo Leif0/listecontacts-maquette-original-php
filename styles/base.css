@@ -1,0 +1,494 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
+
+html, body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.alert{
+    padding:20px;
+}
+
+.alert-info {
+    background-color: #158cba;
+    border-color: #0C7EAB;
+    color: #ffffff;
+}
+
+.alert-danger {
+    background-color: #E84545;
+    border-color: #903749;
+    color: #ffffff;
+}
+/*
+    Liste de contacts
+*/
+
+body{
+    background:#fff;
+    margin:0;
+    padding:0;
+}
+
+.text-center{
+    text-align: center;
+}
+
+input{
+    background: #fff;
+    border-width: 1px 1px 4px 1px;
+    border-style: solid;
+    border-color: #E4E4E4;
+    width: 100%;
+    height: 35px;
+}
+
+label{
+    float: none;
+    display: block;
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+.btn{
+    border-width: 1px 1px 4px 1px;
+    padding: 10px 20px;
+    border-style: solid;
+    color: #fff;
+    /* width: 100%; */
+    /* margin-right: 65px; */
+    /* float: none; */
+    border-radius: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    /* height: 56px; */
+    display: block;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+button.btn{
+    width: 100%;
+}
+
+.btn.btn-primary{
+    border-color: #2DA6B7;
+    background: #3EC1D3;
+}
+
+.btn.btn-grey{
+    border-color: #757575;
+    background: grey;
+}
+
+.boutons-principaux{
+    margin:50px 0;
+}
+
+.heading{
+    background: rgb(230, 230, 230);
+    position: fixed;
+    /* color: red; */
+    width: 100%;
+    background: #ffffff;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%);
+    background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+.heading h1{
+    color:#333;
+}
+
+.container{
+    padding: 0 15px;
+    margin: 0 auto;
+    width:1100px;
+    padding-top: 100px;
+    min-height: 65vh;
+}
+
+.heading{
+    text-align: center;
+}
+
+.liste{
+    background:#fff;
+}
+
+.liste .contact{
+    width: 100%;
+    margin: 20px 0;
+    padding:0;
+    border-radius:4px;
+    /*min-height: 210px;*/
+    position:relative;
+
+}
+
+.liste .informations{
+    width:100%;
+    float:left;
+    border: 1px solid #2D4059;
+    border-radius:4px;
+    transition:all 250ms ease-in-out;
+}
+
+.liste .informations.ouvert{
+    width:90%;
+}
+
+.clearboth{
+    clear:both;
+}
+
+.liste .separateur{
+    clear:both;
+    height:1px;
+    width:80%;
+    margin:20px auto;
+    background: #f1f1f1;
+}
+
+.liste .elements{
+    padding:15px;
+    position:relative;
+    background:#fff;
+    border-radius:4px;
+    min-height: 120px;
+}
+
+.actions-principales{
+    text-align: center;
+    margin:20px 0;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Raleway', sans-serif;
+}
+
+h1{
+    margin-bottom:25px;
+    letter-spacing:2px;
+}
+
+.liste ul{
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+.liste ul li{
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 4px;
+    margin:15px 0;
+    transition:all 250ms ease-in-out;
+}
+
+.liste ul li:first-child{
+    margin:0 0 15px 0;
+}
+.liste ul li:last-child{
+    margin:15px 0 0 0;
+}
+
+.liste ul li span{
+    position: relative;
+    bottom: 4px;
+}
+
+.liste ul li i{
+    margin-right: 10px;
+}
+
+.liste ul li.telephone.hover{
+    background: #28B62C;
+    color: #fff;
+}
+
+.liste ul li.email.hover{
+    background: #158CBA;
+    color: #fff;
+}
+
+.liste h3{
+    padding: 15px;
+    color: #FFFFFF;
+    margin:0 0;
+    letter-spacing: 1px;
+    width: 70%;
+    float:left;
+}
+
+.liste .barre{
+    background: #2D4059;
+    color: #FFFFFF;
+    margin:0 0;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #EBEFF3;
+    position:relative;
+    height: 60px;
+}
+
+.liste .actions{
+    position:relative;
+    width: 17%;
+    float: right;
+}
+
+.liste .description{
+    width: 55%;
+    float: left;
+    padding: 15px;
+    background: #F9F9F9;
+    margin-right: 15px;
+    color: #6F6F6F;
+    border-radius: 2px;
+}
+
+.liste .actions .action.supprimer{
+    background:#EA5455;
+}
+
+.liste .actions .action.modifier{
+    background:#F07B3F;
+}
+
+.liste .actions .action.contacter{
+    background:#3FC1C9;
+}
+
+.liste .actions .action.appeler{
+    background:#00B8A9;
+}
+
+
+
+.liste ul{
+    width:40%;
+    float:left;
+}
+
+.liste .actions{
+
+}
+
+.liste .actions .action{
+    margin: 10px 0;
+    text-align: center;
+    color: #fff;
+    float: left;
+    border-radius: 4px;
+    /* width: 32px; */
+    padding: 10px;
+    margin-right: 8px;
+    /* height: 32px; */
+    background: #333;
+    
+}
+
+.liste .afficher-actions{
+    top: 5px;
+    background: #203046;
+    padding: 2px 3px;
+    border: 1px solid #3D5371;
+    border-radius: 4px;
+    right: 5px;
+    position: absolute;
+    display:none;
+}
+
+/*
+    Page ajout / modification
+*/
+
+.ajout-modification{
+    padding:20px;
+}
+
+.ajout-modification input{
+    background: #fff;
+    border-width: 1px 1px 4px 1px;
+    border-style: solid;
+    padding: 10px 25px;
+    text-align: center;
+    border-color: #E4E4E4;
+    width: 95%;
+    display: block;
+    clear: both;
+    text-align: left;
+}
+
+.ajout-modification textarea{
+    background: #fff;
+    border-width: 1px 1px 4px 1px;
+    border-style: solid;
+    padding: 10px 25px;
+    border-color: #E4E4E4;
+    width: 95%;
+    display: block;
+    clear: both;
+}
+
+/*
+    Footer
+*/
+footer{
+    background: #333333;
+    padding: 25px 0 15px 0;
+    color: #f1f1f1;
+    width: 100%;
+    margin-top:50px;
+}
+
+/*
+    Page de connexion
+*/
+
+body.accueil{
+    background:url("../images/bg.jpg") no-repeat fixed;
+    -webkit-background-size:cover;
+    background-size:cover;
+}
+
+.accueil .heading{
+    background:rgba(0,0,0,0.3);
+    position:fixed;
+    width:100%;
+}
+
+.accueil .main{
+}
+
+.accueil h1{
+    text-align: center;
+    margin:15px 0;
+    color:#fff;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing:2px;
+}
+
+.accueil .formulaire{
+    background:rgba(0,0,0,0.3);
+    color:#fff;
+    border-radius: 4px;
+    transition: background 250ms ease-in-out,
+    box-shadow 250ms ease-in-out,
+    transform 250ms ease-in-out;
+    padding: 0px 50px 25px 50px;
+    width: 35%;
+    padding: 20px 40px;
+    margin: 0 auto;
+}
+
+.accueil .form-group{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.accueil .formulaire h2 {
+    text-align: center;
+    margin: 5px 0 15px 0;
+    color:#fff;
+}
+
+.accueil .formulaire .btn{
+    margin:20px 0;
+}
+
+.accueil .formulaire input{
+    background: rgba(0, 0, 0, 0.25);
+    border-width: 1px 1px 1px 3px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.12);
+    width: 100%;
+    height: 35px;
+    color:#fff;
+}
+
+.accueil .formulaire input:focus{
+    border-left:3px solid #158cba;
+    box-shadow:none;
+    -webkit-box-shadow:none;
+}
+
+.accueil .formulaire input[type="checkbox"]{
+    float:left;
+    width: auto;
+    height: 24px;
+}
+
+.accueil .formulaire .spam{
+    margin:15px 0;
+}
+
+/*
+    Responsive
+*/
+
+@media all and (max-width:767px){
+    .accueil h1{
+        font-size:32px;
+    }
+
+    .liste .actions {
+        width: 100%;
+        float: none;
+        display: block;
+    }
+
+    .liste .informations {
+        width: 100%;
+        float: none;
+    }
+
+    .liste .contact:after{
+        display:none;
+    }
+
+    .liste .description {
+        width: 100%;
+        float: none;
+    }
+
+    .liste ul {
+        width: 100%;
+        float: none;
+    }
+
+    .liste .actions .action{
+        float: none;
+        width: 100%;
+        margin:5px 0;
+    }
+
+    .liste .actions .action:first-child{
+        margin-top:15px;
+    }
+
+    .liste .informations.ouvert {
+        width: 100%;
+    }
+
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .liste .afficher-actions {
+        height: 36px;
+        width: 36px;
+        top: 10px;
+        right: 10px;
+        padding: 5px;
+        position: absolute;
+    }
+
+    .liste ul{
+        margin-top: 15px;
+    }
+}
