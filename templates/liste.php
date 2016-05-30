@@ -1,6 +1,6 @@
 <?php
 if(!defined('acces_permis')) {
-    die('Accès direct impossible');
+    die('Vous devez être connecté');
 }
 ?>
 
@@ -8,13 +8,9 @@ if(!defined('acces_permis')) {
 
     <div class="container liste">
         <div class="col-xs-12">
-            
-            <div class="deconnexion">
-                <a href="<?php echo Controleur::get_url('deconnexion') ?>">Deconnexion</a>
-            </div>
 
             <div class="boutons-principaux text-center">
-                <a class="btn btn-primary" href="ajouter_modifier.php">Ajouter un contact</a>
+                <a class="btn btn-primary" href="<?php echo Controleur::get_url('ajouter_modifier_contact') ?>">Ajouter un contact</a>
             </div>
 
             <?php foreach ($contacts as $contact) : ?>
@@ -29,10 +25,15 @@ if(!defined('acces_permis')) {
                                 <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
                             </div>
 
-                            <div class="action modifier" data-toggle="tooltip" data-placement="right" title="Modifier"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                            <a href="<?php echo Controleur::get_url('ajouter_modifier_contact') . '?id=' . $contact->getId() ?>">
+                                <div class="action modifier" data-toggle="tooltip" data-placement="right" title="Modifier"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                            </a>
+
                             <div class="action appeler" data-toggle="tooltip" data-placement="right" title="Appeler"><i class="fa fa-phone" aria-hidden="true"></i></div>
                             <div class="action contacter"  data-toggle="tooltip" data-placement="right" title="Contacter"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
-                            <div class="action supprimer"  data-toggle="tooltip" data-placement="right" title="Supprimer"><i class="fa fa-trash" aria-hidden="true"></i></div>
+                            <a href="<?php echo Controleur::get_url('supprimer_contact') . '/' . $contact->getId() ?>">
+                                <div class="action supprimer" data-idcontact="<?php echo $contact->getId() ?>" data-toggle="tooltip" data-placement="right" title="Supprimer"><i class="fa fa-trash" aria-hidden="true"></i></div>
+                            </a>
                         </div>
                     </div>
 
@@ -44,8 +45,8 @@ if(!defined('acces_permis')) {
                         </div>
 
                         <ul>
-                            <li class="telephone"><i class="fa fa-phone-square fa-2x" aria-hidden="true"></i> <span>06 58 74 95 63</span></li>
-                            <li class="email"><i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i> <span>contact@gmail.com</span></li>
+                            <li class="telephone"><i class="fa fa-phone-square fa-2x" aria-hidden="true"></i> <span><?php echo $contact->getTelephone() ?></span></li>
+                            <li class="email"><i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i> <span><?php echo $contact->getemail() ?></span></li>
                         </ul>
                     </div>
                 </div>

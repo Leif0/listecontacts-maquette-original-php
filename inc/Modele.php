@@ -114,6 +114,36 @@ class Modele
         }
     }
 
+    public static function recuperer_contact_par_id($id){
+        require_once 'inc/Contact.php';
+        $bdd = self::ouvrir_connexion();
+
+        $requete = $bdd->prepare("SELECT id, nom, prenom, telephone, email, id_utilisateur FROM contacts WHERE id = :id");
+        $requete->execute([
+            'id' => $id
+        ]);
+
+        $resultat = $requete->fetch();
+
+        if($resultat){
+            // Le contact doit appartenir à l'utilisateur
+            if($resultat['id_utilisateur'] == $_SESSION['idUtilisateur']){
+                $contact = new Contact(
+                    $resultat['id'],
+                    $resultat['nom'],
+                    $resultat['prenom'],
+                    $resultat['telephone'],
+                    $resultat['email'],
+                    $resultat['id_utilisateur']
+                );
+
+                return $contact;
+            }
+        }else{
+            echo 'Contact inconnu';
+        }
+    }
+
     public static function get_contacts($id_utilisateur){
         require_once 'Contact.php';
         $bdd = Modele::ouvrir_connexion();
@@ -133,10 +163,12 @@ class Modele
             // On ajoute chaque contact à la liste
             while ($ligne = $requete->fetch(PDO::FETCH_OBJ)){
                 $contact = new Contact(
+                    $ligne->id,
                     $ligne->nom,
                     $ligne->prenom,
                     $ligne->telephone,
-                    $ligne->email
+                    $ligne->email,
+                    $ligne->id_utilisateur
                 );
 
                 $contacts[] = $contact;
@@ -146,5 +178,62 @@ class Modele
         Modele::fermer_connexion($bdd);
 
         return $contacts;
+    }
+
+    public static function creer_contact($contact){
+        $bdd = self::ouvrir_connexion();
+
+        // Afficher les erreurs
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $bdd->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+        try{
+            $requete = $bdd->prepare(
+                'INSERT INTO contacts(id, nom, prenom, telephone, email, id_utilisateur) 
+                 VALUES(DEFAULT, :nom, :prenom, :telephone, :email, :id_utilisateur)'
+            );
+
+            $resultat = $requete->execute(array(
+                ':nom' => $contact->getNom(),
+                ':prenom' => $contact->getPrenom(),
+                ':telephone' => $contact->getTelephone(),
+                ':email' => $contact->getEmail(),
+                ':id_utilisateur' => $contact->getIdUtilisateur()
+            ));
+
+            // Ajout OK
+            if($resultat == 1){
+                return true;
+            }else{
+                return false;
+            }
+
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    public static function supprimer_contact($idContact){
+        // Récupère le contact en base
+        $bdd = self::ouvrir_connexion();
+
+        $requete = $bdd->prepare("SELECT id, id_utilisateur FROM contacts WHERE id = :id");
+
+        $resultat = $requete->execute([
+           ':id' => $idContact
+        ]);
+
+        // Vérifie si le contact appartient à la personne qui tente de supprimer
+
+        if($resultat){
+            $contact = $requete->fetch();
+            if($contact['id_utilisateur'] == $_SESSION['idUtilisateur']){
+                // Supprime le contact de la base
+                $bdd->query("DELETE FROM contacts WHERE id = " . $idContact);
+
+            }
+        }
+        
+
     }
 }

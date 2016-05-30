@@ -2,17 +2,25 @@
 
 class Contact
 {
+    private $id;
     private $nom;
     private $prenom;
     private $telephone;
     private $email;
+    private $id_utilisateur;
 
-    public function __construct($nom, $prenom, $telephone, $email)
+    public function __construct($id = null, $nom, $prenom, $telephone, $email, $id_utilisateur)
     {
+        $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->telephone = $telephone;
         $this->email = $email;
+        $this->id_utilisateur = $id_utilisateur;
+    }
+
+    public function getId(){
+        return $this->id;
     }
 
     public function getNom(){
@@ -29,5 +37,9 @@ class Contact
 
     public function getEmail(){
         return $this->email;
+    }
+
+    public function getIdUtilisateur(){
+        return $this->id_utilisateur;
     }
 }
