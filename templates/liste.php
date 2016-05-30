@@ -28,9 +28,12 @@ if(!defined('acces_permis')) {
                             <a href="<?php echo Controleur::get_url('ajouter_modifier_contact') . '?id=' . $contact->getId() ?>">
                                 <div class="action modifier" data-toggle="tooltip" data-placement="right" title="Modifier"><i class="fa fa-pencil" aria-hidden="true"></i></div>
                             </a>
-
-                            <div class="action appeler" data-toggle="tooltip" data-placement="right" title="Appeler"><i class="fa fa-phone" aria-hidden="true"></i></div>
-                            <div class="action contacter"  data-toggle="tooltip" data-placement="right" title="Contacter"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
+                            <a href="tel:<?php echo $contact->getTelephone() ?>">
+                                <div class="action appeler" data-toggle="tooltip" data-placement="right" title="Appeler"><i class="fa fa-phone" aria-hidden="true"></i></div>
+                            </a>
+                            <a href="mailto:<?php echo $contact->getEmail() ?>">
+                                <div class="action contacter"  data-toggle="tooltip" data-placement="right" title="Contacter"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
+                            </a>
                             <a href="<?php echo Controleur::get_url('supprimer_contact') . '/' . $contact->getId() ?>">
                                 <div class="action supprimer" data-idcontact="<?php echo $contact->getId() ?>" data-toggle="tooltip" data-placement="right" title="Supprimer"><i class="fa fa-trash" aria-hidden="true"></i></div>
                             </a>

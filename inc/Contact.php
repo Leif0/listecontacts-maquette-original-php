@@ -19,6 +19,10 @@ class Contact
         $this->id_utilisateur = $id_utilisateur;
     }
 
+    public function setId($id){
+        $this->id = $id;
+    }
+
     public function getId(){
         return $this->id;
     }

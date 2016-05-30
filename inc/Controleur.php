@@ -46,7 +46,7 @@ class Controleur
 
     public static function afficher_liste(){
         $titre = "Mes contacts";
-
+        
         // Si la session est vide (utilisateur non connecté) on tente de se connecter
         if(empty($_SESSION['idUtilisateur'])){
             if(isset($_POST['login']) && isset($_POST['password'])){
@@ -71,7 +71,7 @@ class Controleur
         }
     }
 
-    public static function ajouter_contact(){
+    public static function ajouter_modifier_contact(){
         if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['telephone']) && isset($_POST['email'])){
             if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['telephone']) && !empty($_POST['email'])){
                 require_once 'inc/Contact.php';
@@ -84,7 +84,13 @@ class Controleur
                     $_POST['email'],
                     $_SESSION['idUtilisateur']);
 
-                $resultat = Modele::creer_contact($contact);
+                // Si idContact n'est pas vide c'est qu'on cherche à modifier le contact
+                if(!empty($_POST['idContact'])){
+                    $contact->setId($_POST['idContact']);
+                    $resultat = Modele::modifier_contact($contact);
+                }else{
+                    $resultat = Modele::creer_contact($contact);
+                }
 
                 if($resultat){
                     $_SESSION['message'] = array(

@@ -213,6 +213,41 @@ class Modele
         }
     }
 
+    public static function modifier_contact($contact){
+        $bdd = self::ouvrir_connexion();
+
+        // Afficher les erreurs
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $bdd->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+        try{
+            $requete = $bdd->prepare(
+                'UPDATE contacts
+                 SET nom = :nom, prenom = :prenom, telephone = :telephone, email = :email
+                 WHERE id = :id AND id_utilisateur = :id_utilisateur'
+            );
+
+            $resultat = $requete->execute(array(
+                'id' => $contact->getId(),
+                'nom' => $contact->getNom(),
+                'prenom' => $contact->getPrenom(),
+                'telephone' => $contact->getTelephone(),
+                'email' => $contact->getEmail(),
+                'id_utilisateur' => $_SESSION['idUtilisateur']
+            ));
+
+            // Modification ok
+            if($resultat == 1){
+                return true;
+            }else{
+                return false;
+            }
+
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
     public static function supprimer_contact($idContact){
         // Récupère le contact en base
         $bdd = self::ouvrir_connexion();

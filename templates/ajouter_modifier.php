@@ -6,10 +6,10 @@ if(!defined('acces_permis')) {
 
 include_once 'inc/header.php';
 
-// Ajoute le contact si c'est une requete POST
+// Ajoute ou modifie le contact si c'est une requete POST
 Controleur::ajouter_modifier_contact();
 
-// Récupère le contact si on veut modifier
+// Récupère le contact si on veut modifier (requete GET)
 $contact = Controleur::recuperer_contact();
 
 ?>
@@ -24,7 +24,7 @@ $contact = Controleur::recuperer_contact();
         <?php Utilitaires::afficher_erreur() ?>
 
         <form method="post" class="formulaire ajout-modification-contact">
-            <input type="hidden" name="idContact" value="<?php echo $_GET['id'] ?>" />
+            <input type="hidden" name="idContact" value="<?php if(isset($_GET['id'])) echo $_GET['id'] ?>" />
             <div class="form-group">
                 <label for="nom">Nom</label>
                 <input type="text" id="nom" name="nom" class="form-control" value="<?php if(isset($contact)) echo $contact->getNom() ?>"/>

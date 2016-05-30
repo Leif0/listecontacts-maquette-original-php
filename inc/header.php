@@ -10,6 +10,7 @@
 <script src="<?php echo Controleur::get_path() ?>/js/base.js"></script>
 
 <div class="container-fluid heading">
+    <img src="<?php echo Controleur::get_path() ?>/images/logo-dark.png" alt="Logo iContacts">
     <h1><?php if(isset($titre) && $titre != '') echo $titre ?></h1>
 
     <?php if (isset($_SESSION['login']) && !empty($_SESSION['login'])) : ?>
