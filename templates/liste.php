@@ -43,14 +43,19 @@ if(!defined('acces_permis')) {
 
                     <div class="elements">
                         <div class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent fringilla leo volutpat, interdum massa vel,
-                            ultricies ligula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                            <?php echo $contact->getDescription() ?>
+
+                            <div class="plus">
+                                <i class="fa fa-plus-square" aria-hidden="true" style="color:#3EC1D3"></i>
+                            </div>
                         </div>
 
                         <ul>
-                            <li class="telephone"><i class="fa fa-phone-square fa-2x" aria-hidden="true"></i> <span><?php echo $contact->getTelephone() ?></span></li>
-                            <li class="email"><i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i> <span><?php echo $contact->getemail() ?></span></li>
+                            <li class="telephone"><i class="fa fa-phone fa-2x" aria-hidden="true"></i> <span><?php echo $contact->getTelephone() ?></span></li>
+                            <li class="email"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i> <span><?php echo $contact->getemail() ?></span></li>
+                            <li class="entreprise"><i class="fa fa-building-o fa-2x" aria-hidden="true"></i> <span><?php echo $contact->getRaisonSocialeEntreprise() ?></span></li
                         </ul>
+                        <div class="clearboth"></div>
                     </div>
                 </div>
 

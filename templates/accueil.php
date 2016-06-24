@@ -20,7 +20,7 @@
 
             <div class="text-center">
                 <button class="btn btn-primary">Connexion</button>
-                <a href="<?php echo Controleur::get_url('inscription') ?>" class="btn btn-grey">Créer un compte</a>
+                <a href="<?php echo Controleur::get_url('prix') ?>" class="btn btn-grey">Créer un compte</a>
             </div>
         </form>
     </div>

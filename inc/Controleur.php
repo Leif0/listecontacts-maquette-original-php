@@ -28,6 +28,27 @@ class Controleur
         }
     }
 
+
+    public static function afficher_profil($idUtilisateur){
+        $titre = "Profil";
+        $body_class = "profil";
+
+        $utilisateur = Modele::recuperer_profil_utilisateur_par_id($idUtilisateur);
+
+        require 'templates/profil.php';
+    }
+
+    public static function afficher_prix(){
+        $titre = "Prix";
+        $body_class = "prix";
+
+        if(!empty($_SESSION['idUtilisateur'])){
+            self::rediriger('liste');
+        }else{
+            require 'templates/prix.php';
+        }
+    }
+
     public static function afficher_ajouter_modifier_contact(){
         if(!empty($_SESSION['idUtilisateur'])){
             // Définie pour interdire l'accès direct à la page
@@ -40,6 +61,7 @@ class Controleur
         if(empty($_SESSION['idUtilisateur'])){
             self::rediriger('accueil');
         }else{
+            $entreprises = Modele::get_entreprises();
             require 'templates/ajouter_modifier.php';
         }
     }
@@ -72,8 +94,8 @@ class Controleur
     }
 
     public static function ajouter_modifier_contact(){
-        if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['telephone']) && isset($_POST['email'])){
-            if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['telephone']) && !empty($_POST['email'])){
+        if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['telephone']) && isset($_POST['email']) && isset($_POST['entreprise'])){
+            if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['telephone']) && !empty($_POST['email']) && !empty($_POST['entreprise'])){
                 require_once 'inc/Contact.php';
 
                 $contact = new Contact(
@@ -82,19 +104,24 @@ class Controleur
                     $_POST['prenom'],
                     $_POST['telephone'],
                     $_POST['email'],
-                    $_SESSION['idUtilisateur']);
+                    $_POST['description'],
+                    $_SESSION['idUtilisateur'],
+                    $_POST['entreprise']);
 
                 // Si idContact n'est pas vide c'est qu'on cherche à modifier le contact
                 if(!empty($_POST['idContact'])){
                     $contact->setId($_POST['idContact']);
                     $resultat = Modele::modifier_contact($contact);
+
+                    $_SESSION['message'] = array(
+                        'text' => "Contact modifié",
+                        'type' => "ajout_contact_valide"
+                    );
                 }else{
                     $resultat = Modele::creer_contact($contact);
-                }
 
-                if($resultat){
                     $_SESSION['message'] = array(
-                        'text' => "Contact ajouté",
+                        'text' => "Contact modifié",
                         'type' => "ajout_contact_valide"
                     );
                 }
@@ -104,14 +131,6 @@ class Controleur
         }
     }
 
-    public static function connexion($login, $password){
-        if(isset($login) && isset($password)){
-            $_SESSION['idUtilisateur'] = 1;
-        }else{
-            Controleur::rediriger('accueil');
-        }
-    }
-    
     public static function inscription($login, $password, $email){
         $user = Modele::creer_utilisateur($login, $password, $email);
         

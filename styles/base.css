@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,300);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
+/*@import url(https://fonts.googleapis.com/css?family=Raleway:400,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600);*/
 
 html, body{
     font-family: 'Open Sans', sans-serif;
@@ -192,6 +192,7 @@ a.btn{
     border: 1px solid #2D4059;
     border-radius:4px;
     transition:all 250ms ease-in-out;
+    background: #fff;
 }
 
 .liste .informations.ouvert{
@@ -215,7 +216,7 @@ a.btn{
     position:relative;
     background:#fff;
     border-radius:4px;
-    min-height: 120px;
+    min-height: 186px;
 }
 
 .actions-principales{
@@ -305,6 +306,20 @@ h1{
     margin-right: 15px;
     color: #6F6F6F;
     border-radius: 2px;
+    max-height: 150px;
+    overflow: hidden;
+    position:relative;
+}
+
+.liste .description.clickedPlus{
+    max-height: none;
+}
+
+.liste .description .plus{
+    position: absolute;
+    bottom: 4px;
+    right: 7px;
+    cursor:pointer;
 }
 
 .liste .actions .action.supprimer{
@@ -380,6 +395,19 @@ h1{
 
 .ajout-modification input{
     font-size: 17px;
+}
+
+.ajout-modification select{
+    background: #fff;
+    border-width: 1px 1px 4px 1px;
+    border-style: solid;
+    padding: 10px 25px;
+    text-align: center;
+    border-color: #E4E4E4;
+    width: 100%;
+    display: block;
+    clear: both;
+    text-align: left;
 }
 
 .ajout-modification textarea{
@@ -497,6 +525,112 @@ body.accueil{
 .accueil .container{
     padding-top: 75px;
     min-height: 57vh;
+}
+
+/*
+    Liste des prix
+*/
+
+.choix-prix h2{
+    text-align:center;
+    font-size:34px;
+    color: #757575;
+    font-weight:100;
+}
+
+.liste-prix .prix {
+    width: 31%;
+    float: left;
+    background: #f1f1f1;
+    margin: 1%;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow:0 0 6px 0 rgba(0,0,0,0.2);
+    transition:all 250ms ease-in-out;
+    cursor:pointer;
+}
+
+
+.liste-prix .prix:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 8px 0 rgba(0,0,0,0.3);
+}
+
+.liste-prix .prix h2 {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 15px;
+    margin: 0;
+    border-radius: 10px 10px 0 0;
+    font-weight:100;
+    font-size:24px;
+}
+.liste-prix .prix h2 .par-mois {
+    font-size: 12px;
+    margin-top: 15px;
+    letter-spacing: 1px;
+    color: #D2D2D2;
+    font-weight:100;
+}
+.liste-prix .prix ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.liste-prix .prix ul li {
+    margin: 0;
+    padding: 15px;
+    color: #696969;
+}
+.liste-prix .prix ul li:nth-child(even) {
+    background: #fff;
+}
+.liste-prix .prix ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+.liste-prix .prix ul li:last-child{
+    border-radius: 0 0 10px 10px;
+}
+.liste-prix .prix.gratuit h2 {
+    background: #00b8a9;
+    border-bottom: 4px solid #129E93;
+}
+
+.liste-prix .prix.premium h2 {
+    background: #333333;
+    border-bottom: 4px solid #545454;
+}
+.liste-prix .prix.entreprise h2 {
+    background: #FF5722;
+    border-bottom: 4px solid #DC5227;
+}
+.liste-prix .prix h2 strong{
+    font-size: 17px;
+    color: #fff;
+}
+.liste-prix .prix.gratuit .btn.btn-achat{
+    background:#00B8A9;
+}
+.liste-prix .prix.premium .btn.btn-achat{
+    background:#333333;
+}
+.liste-prix .prix.entreprise .btn.btn-achat{
+    background:#FF5722;
+}
+
+.lien-gris a{
+    color:grey;
+    padding: 35px 0 0 0;
+    display: block;
+}
+
+.clearboth.cinquante{
+    margin:50px 0;
+}
+
+.liste .description ul{
+    float:none !important;
 }
 
 /*

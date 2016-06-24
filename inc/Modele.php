@@ -48,10 +48,11 @@ class Modele
         $bdd->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
         // Vérifier si le login est déjà pris
-        $requete = $bdd->prepare("SELECT login FROM utilisateurs WHERE login = :login");
+        $requete = $bdd->prepare("SELECT login FROM utilisateurs WHERE login = :login OR email = :email");
 
         $requete->execute([
-            ':login' => $login
+            ':login' => $login,
+            ':email' => $email
         ]);
 
         $resultat = $requete->fetch();
@@ -95,6 +96,24 @@ class Modele
         }
     }
 
+    public static function recuperer_profil_utilisateur_par_id($id){
+        $bdd = self::ouvrir_connexion();
+
+        $requete = $bdd->prepare("SELECT id, login FROM utilisateurs WHERE id = :id");
+        $requete->execute([
+            'id' => $id
+        ]);
+
+        $resultat = $requete->fetch();
+
+        if($resultat){
+            $user = new Utilisateur($resultat['id'], $resultat['login']);
+            return $user;
+        }else{
+            echo 'Id inconnu';
+        }
+    }
+
     public static function recuperer_utilisateur_par_id($id){
         $bdd = self::ouvrir_connexion();
 
@@ -118,7 +137,7 @@ class Modele
         require_once 'inc/Contact.php';
         $bdd = self::ouvrir_connexion();
 
-        $requete = $bdd->prepare("SELECT id, nom, prenom, telephone, email, id_utilisateur FROM contacts WHERE id = :id");
+        $requete = $bdd->prepare("SELECT id, nom, prenom, telephone, email, description, id_utilisateur, id_entreprise FROM contacts WHERE id = :id");
         $requete->execute([
             'id' => $id
         ]);
@@ -134,7 +153,9 @@ class Modele
                     $resultat['prenom'],
                     $resultat['telephone'],
                     $resultat['email'],
-                    $resultat['id_utilisateur']
+                    $resultat['description'],
+                    $resultat['id_utilisateur'],
+                    $resultat['id_entreprise']
                 );
 
                 return $contact;
@@ -149,7 +170,9 @@ class Modele
         $bdd = Modele::ouvrir_connexion();
 
         $requete = $bdd->prepare(
-            "SELECT id, nom, prenom, telephone, email, id_utilisateur FROM contacts WHERE id_utilisateur = :id_utilisateur"
+            "SELECT id, nom, prenom, telephone, email, description, id_utilisateur, id_entreprise
+             FROM contacts 
+             WHERE id_utilisateur = :id_utilisateur"
         );
 
         $resultat = $requete->execute([
@@ -168,7 +191,9 @@ class Modele
                     $ligne->prenom,
                     $ligne->telephone,
                     $ligne->email,
-                    $ligne->id_utilisateur
+                    $ligne->description,
+                    $ligne->id_utilisateur,
+                    $ligne->id_entreprise
                 );
 
                 $contacts[] = $contact;
@@ -180,6 +205,44 @@ class Modele
         return $contacts;
     }
 
+    public static function get_entreprises(){
+        $bdd = Modele::ouvrir_connexion();
+
+        $requete = $bdd->prepare(
+            "SELECT id, raison_sociale
+             FROM entreprises"
+        );
+
+        $resultat = $requete->execute();
+        
+        if($resultat){
+            $entreprises = $requete->fetchAll(PDO::FETCH_OBJ);
+            Modele::fermer_connexion($bdd);
+            return $entreprises;
+        }
+    }
+
+    public static function get_raison_sociale_entreprise_par_id($id){
+        $bdd = Modele::ouvrir_connexion();
+
+        $requete = $bdd->prepare(
+            "SELECT raison_sociale
+             FROM entreprises
+             WHERE id = :id"
+        );
+
+        $resultat = $requete->execute([
+            'id' => $id
+        ]);
+
+        if($resultat){
+            $entreprise = $requete->fetch(PDO::FETCH_OBJ);
+            Modele::fermer_connexion($bdd);
+            return $entreprise->raison_sociale;
+        }
+    }
+
+
     public static function creer_contact($contact){
         $bdd = self::ouvrir_connexion();
 
@@ -189,16 +252,18 @@ class Modele
 
         try{
             $requete = $bdd->prepare(
-                'INSERT INTO contacts(id, nom, prenom, telephone, email, id_utilisateur) 
-                 VALUES(DEFAULT, :nom, :prenom, :telephone, :email, :id_utilisateur)'
+                'INSERT INTO contacts(id, nom, prenom, telephone, email, description, id_utilisateur, id_entreprise, date_creation) 
+                 VALUES(DEFAULT, :nom, :prenom, :telephone, :email, :description, :id_utilisateur, :id_entreprise, now())'
             );
 
             $resultat = $requete->execute(array(
-                ':nom' => $contact->getNom(),
-                ':prenom' => $contact->getPrenom(),
-                ':telephone' => $contact->getTelephone(),
-                ':email' => $contact->getEmail(),
-                ':id_utilisateur' => $contact->getIdUtilisateur()
+                'nom' => $contact->getNom(),
+                'prenom' => $contact->getPrenom(),
+                'telephone' => $contact->getTelephone(),
+                'email' => $contact->getEmail(),
+                'description' => $contact->getDescription(),
+                'id_utilisateur' => $contact->getIdUtilisateur(),
+                'id_entreprise' => $contact->getIdEntreprise()
             ));
 
             // Ajout OK
@@ -223,7 +288,8 @@ class Modele
         try{
             $requete = $bdd->prepare(
                 'UPDATE contacts
-                 SET nom = :nom, prenom = :prenom, telephone = :telephone, email = :email
+                 SET nom = :nom, prenom = :prenom, telephone = :telephone, email = :email, description = :description,
+                 id_entreprise = :id_entreprise
                  WHERE id = :id AND id_utilisateur = :id_utilisateur'
             );
 
@@ -233,7 +299,9 @@ class Modele
                 'prenom' => $contact->getPrenom(),
                 'telephone' => $contact->getTelephone(),
                 'email' => $contact->getEmail(),
-                'id_utilisateur' => $_SESSION['idUtilisateur']
+                'description' => $contact->getDescription(),
+                'id_utilisateur' => $_SESSION['idUtilisateur'],
+                'id_entreprise' => $contact->getIdEntreprise()
             ));
 
             // Modification ok
@@ -268,7 +336,5 @@ class Modele
 
             }
         }
-        
-
     }
 }

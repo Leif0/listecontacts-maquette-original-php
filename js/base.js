@@ -19,10 +19,18 @@ var creerXHR = function(){
 
 var xhr = creerXHR();
 
+var addClass = function(el, className){
+    if (el.classList)
+        el.classList.add(className);
+    else
+        el.className += ' ' + className;
+}
 
-
-
-
+var removeClass = function(el, className){
+    if(el.classList){
+        el.classList.remove(className);
+    }
+}
 
 window.onload = function(){
 
@@ -139,4 +147,55 @@ window.onload = function(){
         formulaireAjoutModificationContact.onsubmit = validerAjoutModificationContact;
     }
 
+    // Clic sur le bouton + pour afficher le reste de la description
+
+    var plusInfos = document.querySelectorAll('.description .plus');
+
+    for(var i=0; i<plusInfos.length; i++) {
+        plusInfos[i].addEventListener('click', clickPlus, false);
+    }
+
+    function clickPlus(element){
+        var parent = this.parentNode;
+        addClass(parent, 'clickedPlus');
+
+    }
+
+    // Hover sur un bouton appeler ou contacter
+
+    var hoverElement = function(caller, type){
+        var parent = caller.parentNode.parentNode.parentNode.parentNode;
+        var element = parent.querySelector('ul .'+type);
+        addClass(element, 'hover');
+    }
+
+    var removeHover = function(caller, type, className){
+        var parent = caller.parentNode.parentNode.parentNode.parentNode;
+        var element = parent.querySelector('ul .'+type);
+        removeClass(element, className);
+    }
+
+    var bouttonAppeler = document.querySelectorAll('.action.appeler');
+
+    for(var i=0; i<bouttonAppeler.length; i++) {
+        bouttonAppeler[i].addEventListener('mouseover', function() {
+                hoverElement(this, 'telephone');
+        }, false);
+
+        bouttonAppeler[i].addEventListener('mouseleave', function() {
+            removeHover(this, 'telephone', 'hover');
+        }, false);
+    }
+
+    var bouttonContact = document.querySelectorAll('.action.contacter');
+
+    for(var i=0; i<bouttonContact.length; i++) {
+        bouttonContact[i].addEventListener('mouseover', function() {
+            hoverElement(this, 'email');
+        }, false);
+
+        bouttonContact[i].addEventListener('mouseleave', function() {
+            removeHover(this, 'email', 'hover');
+        }, false);
+    }
 };

@@ -37,7 +37,9 @@ $contact = Controleur::recuperer_contact();
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="description" id="description" cols="30" rows="10" class="form-control">
+                    <?php if(isset($contact)) echo $contact->getDescription() ?>
+                </textarea>
             </div>
 
             <div class="form-group">
@@ -50,6 +52,20 @@ $contact = Controleur::recuperer_contact();
                 <input type="email" id="email" name="email" class="form-control" value="<?php if(isset($contact)) echo $contact->getEmail() ?>"/>
             </div>
 
+            <div class="form-group">
+                <label for="entreprise">Entreprise</label>
+
+                <select name="entreprise" id="entreprise" class="form-control">
+                    <?php foreach($entreprises as $entreprise) : ?>
+                        <option value="<?php echo $entreprise->id ?>" class="form-control"
+                            <?php if(isset($contact) && $entreprise->id == $contact->getIdEntreprise()) echo 'selected' ?>
+                        >
+                            <?php echo $entreprise->raison_sociale ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary fleft">Valider</button>
                 <a href="<?php echo Controleur::get_url('liste') ?>" class="btn btn-grey fleft">Retour</a>
@@ -59,5 +75,7 @@ $contact = Controleur::recuperer_contact();
 
     </div>
 </div>
+
+<script>tinymce.init({ selector:'textarea' });</script>
 
 <?php include_once 'inc/footer.php'; ?>

@@ -35,6 +35,21 @@ function url_suppression($uri){
     }
 }
 
+function url_profil($uri){
+    // Test si on veut afficher un profil
+    $regexAfficherProfil = "/\/profil\/[0-9]+/";
+
+    // Trouve l'id du contact qu'on veut supprimer
+    if(preg_match($regexAfficherProfil, $uri)){
+        $idProfil = intval(str_replace('/profil/', '', $uri));
+
+        // Redirige vers le profil
+        Controleur::afficher_profil($idProfil);
+
+        return true;
+    }
+}
+
 // Selon l'url, on affiche le bon template
 switch($uri) {
     case '':
@@ -42,6 +57,9 @@ switch($uri) {
         break;
     case '/liste':
         Controleur::afficher_liste();
+        break;
+    case '/prix':
+        Controleur::afficher_prix();
         break;
     case '/inscription':
         Controleur::afficher_inscription();
@@ -53,7 +71,7 @@ switch($uri) {
         Controleur::deconnexion();
         break;
     default:
-        if(!url_suppression($uri)){
+        if(!url_suppression($uri) && !url_profil($uri)){
             header('HTTP/1.1 404 Not Found');
             echo '<html><body><h1>Erreur 404 : page non trouvée</h1></body></html>';
         }
